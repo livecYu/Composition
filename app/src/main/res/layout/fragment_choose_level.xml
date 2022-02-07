@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Выберите уровень:"
-        android:textSize="24dp"
+        android:text="@string/choose_level_title"
+        android:textSize="24sp"
         android:textStyle="bold"
         />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Тестовый" />
+        android:text="@string/test_level" />
 
     <Button
         android:id="@+id/button_level_easy"
@@ -31,7 +31,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/holo_green_light"
-        android:text="Легкий" />
+        android:text="@string/easy_level" />
 
     <Button
         android:id="@+id/button_level_normal"
@@ -40,7 +40,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Средний" />
+        android:text="@string/normal_level" />
 
     <Button
         android:id="@+id/button_level_hard"
@@ -49,5 +49,5 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/holo_red_light"
-        android:text="Тяжелый" />
+        android:text="@string/hard_level" />
 </LinearLayout>
