@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.composition.R
 import com.example.composition.databinding.FragmentGameBinding
+import com.example.composition.domain.entity.GameResult
+import com.example.composition.domain.entity.GameSettings
 import com.example.composition.domain.entity.Level
 
 
@@ -24,6 +26,20 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.tvOption1.setOnClickListener {
+            launchGameFinishedFragment(
+                GameResult(
+                    winner = true,
+                    countOfRightAnswers = 0,
+                    countOfQuestion = 0,
+                    GameSettings(0,0,0,0)
+                )
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseArgs()
@@ -36,6 +52,14 @@ class GameFragment : Fragment() {
 
     private fun parseArgs(){
         lavel = requireArguments().getSerializable(KEY_LEVEL) as Level
+    }
+
+    private fun launchGameFinishedFragment(gameResult: GameResult){
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, GameFinishedFragment.newInstance(gameResult))
+            .addToBackStack(null)
+            .commit()
+
     }
 
     companion object{
