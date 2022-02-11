@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.example.composition.R
 import com.example.composition.databinding.FragmentGameBinding
 import com.example.composition.domain.entity.GameResult
@@ -13,6 +17,24 @@ import com.example.composition.domain.entity.Level
 
 
 class GameFragment : Fragment() {
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            AndroidViewModelFactory.getInstance(requireActivity().application)
+        )[GameViewModel::class.java]
+    }
+
+    private val tvOptions by lazy {
+        mutableListOf<TextView>().apply {
+            add(binding.tvOption1)
+            add(binding.tvOption2)
+            add(binding.tvOption3)
+            add(binding.tvOption4)
+            add(binding.tvOption5)
+            add(binding.tvOption6)
+        }
+    }
+
     private lateinit var level: Level
     private var _binding : FragmentGameBinding? = null
     private val binding : FragmentGameBinding
@@ -28,15 +50,16 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvOption1.setOnClickListener {
-            launchGameFinishedFragment(
-                GameResult(
-                    winner = true,
-                    countOfRightAnswers = 0,
-                    countOfQuestion = 0,
-                    GameSettings(0,0,0,0)
-                )
-            )
+
+    }
+
+    private fun observeViewModel(){
+        viewModel.question.observe(viewLifecycleOwner){
+            binding.tvSum.text = it.sum.toString()
+            binding.tvLeftNumber.text = it.visibleNumber.toString()
+            for (i in 0 until tvOptions.size){
+                tvOptions[i].text = it.options[i].toString()
+            }
         }
     }
 
