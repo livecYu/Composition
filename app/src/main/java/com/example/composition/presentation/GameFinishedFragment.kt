@@ -33,12 +33,17 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val callback = object: OnBackPressedCallback(true){
+        setupClickListeners()
+
+    }
+
+    private fun setupClickListeners(){
+        val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 retryGame()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,callback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         binding.buttonRetry.setOnClickListener {
             retryGame()
